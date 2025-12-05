@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,8 +30,6 @@ public class EmployeeDocs {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    private List<String> certificates;
-
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private User employee;
@@ -38,4 +37,7 @@ public class EmployeeDocs {
     @ManyToOne
     @JoinColumn(name = "created_by")
     private User createdBy;
+
+    @OneToMany(mappedBy = "employeeDocs", cascade = CascadeType.ALL)
+    private List<UserCertificate> certificates = new ArrayList<>();
 }
